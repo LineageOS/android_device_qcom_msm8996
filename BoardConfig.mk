@@ -22,7 +22,7 @@ else
 TARGET_2ND_CPU_VARIANT := cortex-a9
 endif
 
-TARGET_NO_BOOTLOADER := false
+TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := false
 BOOTLOADER_GCC_VERSION := arm-eabi-4.8
 BOOTLOADER_PLATFORM := msm8996 # use msm8996 LK configuration

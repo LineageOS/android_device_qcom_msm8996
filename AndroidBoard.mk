@@ -26,7 +26,7 @@ ifeq ($(KERNEL_DEFCONFIG),)
     endif
 endif
 
-include kernel/AndroidKernel.mk
+#include kernel/AndroidKernel.mk
 
 $(INSTALLED_KERNEL_TARGET): $(TARGET_PREBUILT_KERNEL) | $(ACP)
 	$(transform-prebuilt-to-target)
@@ -186,7 +186,7 @@ endif
 # extra images
 #----------------------------------------------------------------------
 #ifeq (, $(wildcard vendor/qcom/build/tasks/generate_extra_images.mk))
-include device/qcom/common/generate_extra_images.mk
+#include device/qcom/common/generate_extra_images.mk
 #endif
 
 #----------------------------------------------------------------------
