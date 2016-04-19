@@ -26,8 +26,6 @@ PRODUCT_DEVICE := msm8996
 PRODUCT_BRAND := Android
 PRODUCT_MODEL := MSM8996 for arm64
 
-PRODUCT_BOOT_JARS += tcmiface
-
 ifneq ($(strip $(QCPATH)),)
 PRODUCT_BOOT_JARS += WfdCommon
 PRODUCT_BOOT_JARS += com.qti.dpmframework
@@ -36,9 +34,6 @@ PRODUCT_BOOT_JARS += com.qti.location.sdk
 PRODUCT_BOOT_JARS += oem-services
 endif
 
-ifeq ($(strip $(BOARD_HAVE_QCOM_FM)),true)
-PRODUCT_BOOT_JARS += qcom.fmradio
-endif #BOARD_HAVE_QCOM_FM
 PRODUCT_BOOT_JARS += qcmediaplayer
 
 #Android EGL implementation
