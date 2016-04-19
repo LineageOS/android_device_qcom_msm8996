@@ -30,7 +30,4 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds.  Do not translate. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
-    <!-- control to enable or disable call transfer feature -->
-    <bool name="config_enable_calltransfer_over_ims">true</bool>
 </resources>
