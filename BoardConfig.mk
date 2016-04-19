@@ -18,6 +18,13 @@ TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := kryo
 
+BOARD_SEPOLICY_DIRS := \
+       $(BOARD_SEPOLICY_DIRS) \
+       device/qcom/sepolicy \
+       device/qcom/sepolicy/common \
+       device/qcom/sepolicy/test \
+       device/qcom/sepolicy/$(TARGET_BOARD_PLATFORM)
+
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
