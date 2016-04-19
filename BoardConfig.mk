@@ -76,6 +76,32 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_USES_UNCOMPRESSED_KERNEL := false
 
+ifneq ($(QCPATH),)
+CORE_CTL_ROOT := $(QCPATH)/android-perf/core-ctl
+CORE_CTL_MODULE:
+	$(hide) mkdir -p $(KERNEL_OUT)/$(CORE_CTL_ROOT)
+	$(hide) cp -f $(CORE_CTL_ROOT)/Kbuild $(KERNEL_OUT)/$(CORE_CTL_ROOT)/Makefile
+	$(hide) cp -f $(CORE_CTL_ROOT)/core_ctl.c $(KERNEL_OUT)/$(CORE_CTL_ROOT)/core_ctl.c
+	$(hide) $(MAKE) $(MAKE_FLAGS) -C $(KERNEL_OUT) M=$(KERNEL_OUT)/$(CORE_CTL_ROOT) ARCH=$(TARGET_ARCH) $(KERNEL_CROSS_COMPILE) modules
+	$(hide) $(TARGET_KERNEL_CROSS_COMPILE_PREFIX)strip --strip-debug $(KERNEL_OUT)/$(CORE_CTL_ROOT)/core_ctl.ko
+	$(hide) mkdir -p $(KERNEL_MODULES_OUT)
+	$(hide) cp -f $(KERNEL_OUT)/$(CORE_CTL_ROOT)/core_ctl.ko $(KERNEL_MODULES_OUT)
+TARGET_KERNEL_MODULES += CORE_CTL_MODULE
+endif
+
+QCA_CLD_ROOT := vendor/qcom/opensource/wlan/qcacld-2.0
+QCA_CLD_MODULE:
+	$(hide) mkdir -p $(KERNEL_OUT)/$(QCA_CLD_ROOT)
+	$(hide) cp -f $(QCA_CLD_ROOT)/Kbuild $(KERNEL_OUT)/$(QCA_CLD_ROOT)/Makefile
+	$(hide) cp -rf $(QCA_CLD_ROOT)/CORE $(KERNEL_OUT)/$(QCA_CLD_ROOT)/CORE
+	$(hide) cp -rf $(QCA_CLD_ROOT)/wcnss $(KERNEL_OUT)/$(QCA_CLD_ROOT)/wcnss
+	$(hide) $(MAKE) $(MAKE_FLAGS) -C $(KERNEL_OUT) M=$(KERNEL_OUT)/$(QCA_CLD_ROOT) ARCH=$(TARGET_ARCH) $(KERNEL_CROSS_COMPILE) MODNAME=wlan WLAN_OPEN_SOURCE=1 CONFIG_QCA_CLD_WLAN=m WLAN_ROOT=$(QCA_CLD_ROOT) BOARD_PLATFORM=$(TARGET_BOARD_PLATFORM) modules
+	$(hide) $(TARGET_KERNEL_CROSS_COMPILE_PREFIX)strip --strip-debug $(KERNEL_OUT)/$(QCA_CLD_ROOT)/wlan.ko
+	$(hide) mkdir -p $(KERNEL_MODULES_OUT)/qca_cld
+	$(hide) cp -f $(KERNEL_OUT)/$(QCA_CLD_ROOT)/wlan.ko $(KERNEL_MODULES_OUT)/qca_cld/qca_cld_wlan.ko
+
+TARGET_KERNEL_MODULES += QCA_CLD_MODULE
+
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 
