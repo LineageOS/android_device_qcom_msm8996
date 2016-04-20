@@ -113,6 +113,7 @@ QCA_CLD_MODULE:
 	$(hide) $(TARGET_KERNEL_CROSS_COMPILE_PREFIX)strip --strip-debug $(KERNEL_OUT)/$(QCA_CLD_ROOT)/wlan.ko
 	$(hide) mkdir -p $(KERNEL_MODULES_OUT)/qca_cld
 	$(hide) cp -f $(KERNEL_OUT)/$(QCA_CLD_ROOT)/wlan.ko $(KERNEL_MODULES_OUT)/qca_cld/qca_cld_wlan.ko
+	$(hide) ln -sf /system/lib/modules/qca_cld/qca_cld_wlan.ko $(KERNEL_MODULES_OUT)/wlan.ko
 
 TARGET_KERNEL_MODULES += QCA_CLD_MODULE
 
